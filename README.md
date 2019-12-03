@@ -19,6 +19,7 @@ Dentro del proyecto:
 ```
   - Inicializa npm
   - Instala express
+  - Instala body-parser para la gestion del body
   - Añade un app.js
   - Crea un servicio que escuche en el puerto 3000
   - Crea un archivo methods.js que contenga las funciones que utilizaremos en cada uno de los endpoints. Expórtalas e impórtalas en el app.js.
