@@ -85,5 +85,7 @@ Se deberán gestionar los errores para estos casos:
 - En caso de buscar una receta que no existe, devolveremos un 404 (not found)
 
 ```
-Añade tantas validaciones adicionales como consideres oportuno para mantener a salvo nuestra "base de datos"
+Añade tantas validaciones adicionales como consideres oportuno para mantener a salvo nuestra "base de datos".
+
+### HAPPY CODING ! :pizza:
 
