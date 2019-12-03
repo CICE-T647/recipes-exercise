@@ -74,18 +74,17 @@ app.post("/modifyRecipe", (req, res)=>{
     fs.writeFileSync("./recipes.json", JSON.stringify(newRecipeJson,null, 4)); //El parametro 4 es el espacio que le pone de identado
     res.status(200).json({message: "receta modificada correctamente"});
 })
-/*
-app.delete("/users", (req, res)=>{
 
+app.delete("/deleteRecipe", (req, res)=>{
     const {id} = req.body;
-    const usersBuffer = fs.readFileSync("./data.json");
-    const users = JSON.parse(usersBuffer); //parseo lo que lee en el buffer
-    users[id -1] = null; 
-    fs.writeFileSync("./data.json", JSON.stringify(users,null, 4)); //El parametro 4 es el espacio que le pone de identado
-    res.status(200).json({message: "usuario borrado correctamente"});
+    const usersBuffer = fs.readFileSync("./recipes.json"); //leo archivo
+    const recipes = JSON.parse(usersBuffer);
+    recipes[parseInt(id) -1] = null; 
+    fs.writeFileSync("./recipes.json", JSON.stringify(recipes,null, 4)); //El parametro 4 es el espacio que le pone de identado
+    res.status(200).json({message: "receta borrado correctamente"});
 })
 
-*/
+
 //Para poner una respuesta default, pero tiene que estar al final porque sino se ejecutaria antes:
 app.use((req, res)=>{
     res.send(404).json({message: "Page not found"});
