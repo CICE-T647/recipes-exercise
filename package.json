@@ -1,0 +1,22 @@
+{
+  "name": "recipes-exercise",
+  "version": "1.0.0",
+  "description": "En el ejercicio de hoy sacaremos el chef que llevamos dentro.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tritio/recipes-exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tritio/recipes-exercise/issues"
+  },
+  "homepage": "https://github.com/tritio/recipes-exercise#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
