@@ -30,7 +30,7 @@ Dentro del proyecto:
 ## Iteración 1: getRecipes
 
 Crea un endpoint que recoja __todas__ las recetas disponibles.
-Deberá devolver un json con todas las recetas que estén el el archivo `recipes.json`
+Deberá devolver un json con todas las recetas que estén en el archivo `recipes.json`
 
 ## Iteración 2: getRecipesById
 
