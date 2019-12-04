@@ -7,7 +7,7 @@ const getRecipes = () => recipes;
 
 const getRecipesById = id => {
   return new Promise((resolve, reject) => {
-    const recipeMatched = recipes.find(recipe => recipe.id === id);
+    const recipeMatched = recipes.find(recipe => recipe.id == id);
     if (!recipeMatched) {
       reject({ message: `No se ha encontrado resultados para la id ${id}` });
     } else {
@@ -15,11 +15,16 @@ const getRecipesById = id => {
     }
   });
 };
-const oneRecipe = id => {
-  getRecipesById(id)
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
-};
-oneRecipe("15");
 
-module.exports = { getRecipes, getRecipesById };
+const addNewRecipe = newRecipe => {
+  return new Promise((resolve, reject) => {
+    newRecipe.id = recipes.length + 1;
+    if (!recipes.push(newRecipe)) {
+      fs.writeFileSync("./recipes.json", JSON.stringify(recipes, null, 4));
+      reject({ message: "Error al incluir la nueva receta" });
+    }
+    resolve({ message: "La receta se ha incluido correctamente" });
+  });
+};
+
+module.exports = { getRecipes, getRecipesById, addNewRecipe };
