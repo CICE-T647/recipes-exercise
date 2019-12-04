@@ -1,35 +1,45 @@
 const fs = require("fs");
-
+const validate = require("./validations"); 
 const usersBuffer = fs.readFileSync("./recipes.json"); //leo archivo
-const recipes = JSON.parse(usersBuffer);
-
+//Controlo que hay recetas en el Json y sino creo un array vacío
+let recipes; 
+try{
+    recipes = JSON.parse(usersBuffer);
+}catch(e){
+    recipes = []; 
+}
+//Devolver todas las recetas
 module.exports.getAll = (req, res) =>{
     res.status(200).json(recipes);
 }
-//Declaro la promesa para controlar que la peli existe:
-const getMovieById = id => {
-    return new Promise((resolve, reject) => {
-        const parsedRecipes =  recipes.filter(recipe => {
+//Devolver recetas por ID
+module.exports.getById = (req, res) =>{
+    const {id} = req.query; 
+    try{
+        //Valido el id
+        validate.validateId(id); 
+        //Controlo que haya recetas en el json sino digo que no hay recetas
+        if(!recipes || !recipes.length){
+            res.status(404).json({message: "No hay recetas en la base de datos"}); 
+        }else{
+            const parsedRecipes =  recipes.filter(recipe => {
             if (recipe){
                     if(recipe.id == id){
                     return recipe;
                 }
             }
-        }); 
-        if (parsedRecipes.length ==  0) {
-            reject("receta no encontrada");
-        }else{resolve(parsedRecipes);}
-    })
-}
-//Exporto el método con las dos opciones. 
-module.exports.getById = async(req, res) =>{
-    const {id} = req.query; 
-    try{
-        const recipesMatched = await getMovieById(id);
-        return res.status(200).json(recipesMatched); 
-    }catch(error){
-        res.status(404).json({message: error}); 
+            });
+            res.status(200).json(parsedRecipes);   
+        }
     }
+    catch(err){
+        console.log(err)
+        if(err.status){
+            res.status(err.status).json({message: err.message, ok: err.ok})
+        }else{
+            res.status(500).json({message: "Internal Server error"})
+        }
+    }  
 }
 
 module.exports.putRecipe = (req,res) =>{
