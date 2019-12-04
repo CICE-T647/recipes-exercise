@@ -30,7 +30,7 @@ app.get("/getRecipeById", (req, res) => {
     const { id } = req.query;
     const keys = Object.keys(req.query);
     if (keys.length != 1 || !keys.includes("id"))
-        res.status(440).json({ message: `Bad Query Parameters` });
+        res.status(422).json({ message: `Bad Query Parameters` });
 
     const recipe = methods.getRecipeById(id);
     if (recipe) res.status(200).json(recipe);
@@ -40,11 +40,11 @@ app.get("/getRecipeById", (req, res) => {
 app.post("/addNewRecipe", (req, res) => {
     const keys = Object.keys(req.body);
     if (keys.length != reqParams.length)
-        res.status(440).json({ message: `Bad Parameters` });
+        res.status(422).json({ message: `Bad Parameters` });
 
     for (const key of keys) {
         if (!reqParams.includes(key))
-            res.status(440).json({ message: `Bad Parameters` });
+            res.status(422).json({ message: `Bad Parameters` });
     }
     const newRecipe = methods.addNewRecipe(req.body);
     if (newRecipe) res.status(200).json(newRecipe);
@@ -56,19 +56,19 @@ app.post("/updateRecipe", (req, res) => {
     const keys = Object.keys(req.body);
 
     if (!keys.includes("id"))
-        res.status(440).json({ message: `Bad Parameters: ID is required` });
+        res.status(422).json({ message: `Bad Parameters: ID is required` });
 
     if (!Number(id))
-        res.status(440).json({ message: `Bad Parameters: ID is a number` });
+        res.status(422).json({ message: `Bad Parameters: ID is a number` });
 
     if (keys.length > reqParams.length + 1)
-        res.status(440).json({
+        res.status(422).json({
             message: `Bad Parameters: Number of parameter is excedeed`
         });
 
     for (const key of keys) {
         if (!reqParams.includes(key) && key != "id")
-            res.status(440).json({ message: `Bad Parameters` });
+            res.status(422).json({ message: `Bad Parameters` });
     }
 
     const recipes = methods.updateRecipe(req.body);
@@ -81,13 +81,13 @@ app.delete("/deleteRecipe", (req, res) => {
     const keys = Object.keys(req.query);
 
     if (!keys.includes("id"))
-        res.status(440).json({ message: `Bad Parameters: ID is required` });
+        res.status(422).json({ message: `Bad Parameters: ID is required` });
 
     if (!Number(id))
-        res.status(440).json({ message: `Bad Parameters: ID is a number` });
+        res.status(422).json({ message: `Bad Parameters: ID is a number` });
 
     if (keys.length > 1)
-        res.status(440).json({
+        res.status(422).json({
             message: `Bad Parameters: Number of parameter is excedeed`
         });
 
