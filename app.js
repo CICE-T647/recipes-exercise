@@ -24,7 +24,11 @@ app.get("/getrecipes", (req, res) => {
 
 app.get("/getrecipesbyid", (req, res) => {
     const { id } = req.query;
-
+    if (typeof parseInt(req.query) !== "number") {
+        console.log(parseInt(req.query) !== "number");
+        res.status(422).json({ message: `bad parameters` });
+    }
+    console.log("idddd", { id });
     const recipeById = recipes.find(recipe => {
         if (recipe.id === id) {
             return id;
@@ -85,8 +89,7 @@ app.post("/updaterecipe/:id", (req, res) => {
         duration,
         creator
     } = req.body;
-    console.log(req.body);
-    console.log(id);
+
     const updatedRecipies = recipes.map(recipe => {
         if (recipe) {
             if (recipe.id === id) {
@@ -112,6 +115,11 @@ app.post("/updaterecipe/:id", (req, res) => {
 
 app.delete("/deleterecipe/:id", (req, res) => {
     const { id } = req.params;
+    if ({ id } > recipes.length || typeof { id } !== "number") {
+        res.status(422).json({
+            message: `bad parameters, el id ${id} no existe`
+        });
+    }
     const index = recipes.map(recipe => {
         if (recipe.id === id) {
             recipe = null;
