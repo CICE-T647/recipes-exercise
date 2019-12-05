@@ -112,15 +112,19 @@ app.post("/updaterecipe/:id", (req, res) => {
 
 app.delete("/deleterecipe/:id", (req, res) => {
     const { id } = req.params;
-    console.log("id", id);
-    // recipe[id - 1] = null;
     const index = recipes.map(recipe => {
         if (recipe.id === id) {
-            console.log(recipe.id);
-        }
+            recipe = null;
+            console.log(recipe);
+        } else return recipe;
     });
-
-    res.status(200).json({ message: "usuario actualizado correctamente" });
+    console.log("index", index);
+    try {
+        fs.writeFileSync("./data.json", JSON.stringify(index, null, 4));
+        res.status(200).json({ message: "receta actualizada correctamente" });
+    } catch (err) {
+        res.status(404).json({ message: "page not found" });
+    }
 });
 
 app.listen(PORT, () => {
