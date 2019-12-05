@@ -1,9 +1,12 @@
 const fs = require("fs");
 const recipes = JSON.parse(fs.readFileSync("./recipes.json"));
 
-//console.log(recipes);
-
-const getRecipes = () => recipes;
+const getRecipes = () => {
+  if (!recipes || !recipes.length) {
+    return { message: "No hay recetas en la base de datos" };
+  }
+  return recipes;
+};
 
 const getRecipesById = id => {
   return new Promise((resolve, reject) => {
