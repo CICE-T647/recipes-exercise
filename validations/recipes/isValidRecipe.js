@@ -1,4 +1,4 @@
-const validateRecipe = recipe => {
+const isValidRecipe = recipe => {
   if (!recipe.title)
     throw {
       status: 422,
@@ -84,4 +84,4 @@ const validateRecipe = recipe => {
   if (!imgUrlTest)
     throw { status: 422, message: "El imgUrl no es correcto", ok: false };
 };
-module.exports.validateRecipe = validateRecipe;
+module.exports = isValidRecipe;

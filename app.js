@@ -3,10 +3,8 @@ const app = express();
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const { getRecipes, getRecipesById, addNewRecipe } = require("./methods.js");
-const validateRecipe = require("./validations/recipes/validateRecipe");
+const { isValidRecipe } = require("./validations/recipes");
 const PORT = 3000;
-
-console.log(validateRecipe);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,10 +22,8 @@ app.get("/recipe/:id", (req, res) => {
 
 app.put("/newrecipe", (req, res) => {
   const newRecipe = req.body;
-  //console.log(newRecipe);
-  //console.log(validateRecipe.validateRecipe(newRecipe));
   try {
-    validateRecipe.validateRecipe(newRecipe);
+    isValidRecipe(newRecipe);
 
     addNewRecipe(newRecipe)
       .then(data => res.status(200).json(data))

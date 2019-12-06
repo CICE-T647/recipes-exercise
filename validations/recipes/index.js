@@ -1,5 +1,3 @@
-const isValidRecipe = require("./validateRecipe");
+const isValidRecipe = require("./isValidRecipe");
 
-module.exports = ({ recipe }) => {
-  isValidRecipe(recipe);
-};
+module.exports = { isValidRecipe };
