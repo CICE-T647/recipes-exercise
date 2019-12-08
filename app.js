@@ -12,9 +12,14 @@ recipesApp.getRecipesById();
 //adicionar receta
 recipesApp.addNewRecipe();
 
+//actualizar receta by id
+recipesApp.updateRecipe();
+
+//borrar receta by id
+recipesApp.deleteRecipe();
+
 //Url no encontrada
 recipesApp.notFoundPath();
-
 
 //Servidor
 recipesApp.runServer(PORT);
